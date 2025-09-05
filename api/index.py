@@ -1,21 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Vercel API入口文件
+Vercel API入口文件 - 简化版
 """
 
 import sys
 import os
 
 # 添加项目根目录到Python路径
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
 
-from web_watermark_app import app
+# 导入主应用
+from app import app
 
-# Vercel需要的handler
-def handler(request):
-    return app(request)
+# Vercel需要的默认导出
+def handler(request, response):
+    return app.wsgi_app(request.environ, response)
 
-# 如果直接运行，启动开发服务器
-if __name__ == "__main__":
-    app.run(debug=True)
+# 或者更简单的方式
+app = app
