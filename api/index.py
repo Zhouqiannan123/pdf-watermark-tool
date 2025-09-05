@@ -141,7 +141,7 @@ HTML_TEMPLATE = '''
             formData.append('fontSize', fontSize);
             
             try {
-                const response = await fetch('/api/process', {
+                const response = await fetch('/process', {
                     method: 'POST',
                     body: formData
                 });
@@ -168,7 +168,7 @@ HTML_TEMPLATE = '''
 def index():
     return render_template_string(HTML_TEMPLATE)
 
-@app.route('/api/process', methods=['POST'])
+@app.route('/process', methods=['POST'])
 def process_file():
     try:
         watermark_text = request.form.get('watermarkText', 'PENYANG TUTOR INTERNAL USE')
